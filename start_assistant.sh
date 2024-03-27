@@ -6,5 +6,5 @@ sleep 5
 
 # Start the Assistant API
 export PYTHONPATH=${PYTHONPATH}:$cwd
-python3 ./api/api.py &
 streamlit run ./ui/ui.py &
+python3 ./api/api.py
