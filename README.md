@@ -22,8 +22,10 @@ When stopping the service, don't forget to also stop the database container `sud
 You can interact with the Assistant from the UI. The idea is to showcase several functionalities in the backend langchain agent. 
 For example, for a simple message, we can inspect the calls made in the backend:
 ![img.png](resources/paris_weather_message.png)
+
 We can see that the LLM agent used one of the tools we provided:
 ![img.png](resources/backend_logs_1.png)
+
 The tool is defined in `./lm_tools/tools.py`. For now, it's a dummy forecast (here you would add calls to some external weather APIs)
 ```python
 @tool
@@ -72,5 +74,6 @@ Importantly, the agent learns that it should call this first and then call the `
 An assistant would not be very useful without a bare minimum memory.
 Therefore, we also implement a chat history so that it remembers what we previously said in the same chat session.
 ![img.png](resources/chat_steve.png)
+
 In the backend, this is accomplished by assigning a session id to each chat and when querying the backend we pass the `session_id` as a parameter. 
 Without doing so, the LLM would not remember previous messages and treat each entry as a new one.
