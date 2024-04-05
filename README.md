@@ -3,7 +3,7 @@ Langchain assistant with tools and chat memory POC. Showcases the basic structur
 ![img.png](resources/simple_message_ui.png)
 
 ## Start
-You can start the service by calling `./start_asssiatnt.sh`. 
+You can start the service by calling `./start_assistant.sh`. 
 The Database service will be started as a Docker container (the id is printed in the terminal). 
 Then after 5 seconds, the API and the UI are started. Access the services:
 

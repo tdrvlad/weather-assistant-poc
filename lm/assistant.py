@@ -11,25 +11,13 @@ import uuid
 # Load variables from .env file so that langchain has access to OpenAI API key
 load_dotenv()
 
-model = ChatOpenAI(model="gpt-3.5-turbo")
-agent = RunnableWithMessageHistory(
-    runnable=AgentExecutor(
-        agent=create_openai_functions_agent(model, tools, prompt),
-        tools=tools,
-        verbose=True
-    ),
-    get_session_history=lambda session_id: get_session_history(session_id),
-    input_messages_key="input",
-    history_messages_key="chat_history",
-)
-
 
 class Assistant:
-    def __init(self, openai_model_id="gpt-3.5-turbo"):
+    def __init__(self, openai_model_id="gpt-3.5-turbo", agent_tools=tools, agent_prompt=prompt):
         self.model = ChatOpenAI(model=openai_model_id)
         self.agent = RunnableWithMessageHistory(
             runnable=AgentExecutor(
-                agent=create_openai_functions_agent(model, tools, prompt),
+                agent=create_openai_functions_agent(self.model, agent_tools, agent_prompt),
                 tools=tools,
                 verbose=True
             ),
@@ -41,7 +29,7 @@ class Assistant:
     def __call__(self, input_string: str, session_id: str = None):
         if session_id is None:
             session_id = str(uuid.uuid4())
-        output = agent.invoke(
+        output = self.agent.invoke(
             {"input": input_string},
             config={
                 "configurable": {"session_id": session_id}
